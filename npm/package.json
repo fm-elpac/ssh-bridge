@@ -1,0 +1,41 @@
+{
+  "name": "vm-ssh-bridge",
+  "version": "0.1.0-a1",
+  "description": "Simple local message bridge (UNIX socket) for VM SSH",
+  "keywords": [
+    "ssh",
+    "bridge",
+    "linux",
+    "vm"
+  ],
+  "files": [
+    ".github",
+    "bin",
+    "src",
+    "systemd-user",
+    ".gitignore",
+    "deno.json"
+  ],
+  "directories": {
+    "bin": "bin"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fm-elpac/ssh-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fm-elpac/ssh-bridge/issues"
+  },
+  "license": "MIT",
+  "author": "secext2022",
+
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": "> 24.0",
+    "pnpm": "^10.33.0"
+  }
+}

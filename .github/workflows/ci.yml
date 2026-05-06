@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno fmt --check
+
+      # ts
+      - run: deno check src
+
+      # bundle
+      - run: mkdir -p bin
+      - run: deno bundle src/sb-server.ts -o bin/sb-server.js
+      - run: deno bundle src/sb-client.ts -o bin/sb-client.js
+
+      - run: cp systemd-user/sb-service.service LICENSE README.md bin/
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: ssh-bridge-bin
+          path: bin

@@ -1,0 +1,37 @@
+# 手动运行: 发布 npm 包
+name: npm publish (vm-ssh-bridge)
+
+on:
+  workflow_dispatch:
+    inputs:
+
+permissions:
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "latest"
+          registry-url: "https://registry.npmjs.org"
+
+      # bundle
+      - run: mkdir -p bin
+      - run: deno bundle src/sb-server.ts -o bin/sb-server.js
+      - run: deno bundle src/sb-client.ts -o bin/sb-client.js
+
+      - run: cp npm/package.json .
+
+      # DEBUG
+      - run: find .
+
+      # 发布 npm
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

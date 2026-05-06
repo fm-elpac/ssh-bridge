@@ -1,0 +1,11 @@
+[Unit]
+Description=SSH Bridge Server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=deno run --allow-env --allow-read --allow-write --allow-net %h/.ssh-bridge/sb-server.js
+Restart=always
+
+[Install]
+WantedBy=default.target
