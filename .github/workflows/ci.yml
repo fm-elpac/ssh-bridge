@@ -27,7 +27,7 @@ jobs:
       - run: deno bundle src/sb-server.ts -o bin/sb-server.js
       - run: deno bundle src/sb-client.ts -o bin/sb-client.js
 
-      - run: cp systemd-user/sb-service.service LICENSE README.md bin/
+      - run: cp systemd-user/sb-server.service LICENSE README.md bin/
 
       - uses: actions/upload-artifact@v6
         with:
